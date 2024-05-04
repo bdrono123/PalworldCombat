@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palworld Combat Data</title>
+    <style>
+        @media (max-width: 2000px) {
+    body {
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ7FsZ0YME399agF-juCsRB7ajLgBmjzlAf3WTD8YDwg&s');
+        background-position: top;
+    }
+}
+        body {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+            background-color: #0A192F; /* Dark blue background */
+            color: #333; /* Darker text for better readability */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers the content on the page */
+        }
+        h1 {
+            color: #F0A500; /* Gold color */
+            text-align: center;
+            background-color: #0066cc;
+            margin-top: 20px;
+            padding: 10px; /* Add padding around the text */
+            border: 2px solid #F0A500; /* Gold border */
+            width: fit-content; /* Ensures the border wraps the text closely */
+            margin: 20px auto; /* Centers the title horizontally */
+        }
+
+        table {
+            width: 90%; /* Slightly smaller table for better layout */
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: #0066cc;
+            background-color: #e1efff; /* Light blue background for the table */
+        }
+        table, th, td {
+            border: 1px solid #F0A500; /* Lighter border color */
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+    background-color: #0066cc; /* A nicer blue for headers */
+    color: #F0A500; /* Gold text in headers */
+    cursor: pointer; /* Ensures cursor changes to pointer on hover */
+    text-align: center;
+    position: relative; /* Needed to position pseudo-elements correctly */
+}
+
+.ascending:after, .descending:after {
+    position: absolute;
+    right: 5px; /* Positioning the arrow to the right inside the header */
+    top: 70%;
+    transform: translateY(-50%);
+    color: #F0A500;
+    font-size: 20px;
+}
+
+.ascending:after {
+    content: "\2191"; /* Unicode for upward arrow */
+}
+
+.descending:after {
+    content: "\2193"; /* Unicode for downward arrow */
+}
+
+        #searchInput {
+            padding: 8px;
+            width: 200px; /* Fixed width */
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #F0A500;
+            outline: none; /* Removes the default focus highlight */
+            margin-bottom: 20px;
+            color: #F0A500;
+            background-color: #e1efff; /* Gold background */
+        }
+    </style>
+</head>
+<body>
+    <h1>Palworld Combat Data</h1>
+    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for names..">
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Pal</th>
+                <th onclick="sortTable(1)">Type</th>
+                <th onclick="sortTable(2)">Level 50 HP</th>
+                <th onclick="sortTable(3)">Level 50 HP Score*</th>
+                <th onclick="sortTable(4)">Level 50 Attack</th>
+                <th onclick="sortTable(5)">Level 50 Defense</th>
+                <th onclick="sortTable(6)">Combat Score</th>
+                <th onclick="sortTable(7)">STAB Attack</th>
+                <th onclick="sortTable(8)">STAB Combat Score</th>
+                <th onclick="sortTable(9)">Type Atk (STAB)</th>
+                <th onclick="sortTable(10)">Type Def</th>
+                <th onclick="sortTable(11)">Type CmbScr (STAB)</th>
+                <th onclick="sortTable(12)">Type Atk (no STAB)</th>
+                <th onclick="sortTable(13)">Type CmbScr (no STAB)</th>
+                <th onclick="sortTable(14)">Best for</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data rowswill be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        async function loadData() {
+            try {
+                const response = await fetch('https://sheetlabs.com/ACC/PalCombatData');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                populateTable(data);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.body.insertAdjacentHTML('beforeend', `<p>Error loading data: ${error.message}</p>`);
+            }
+        }
+
+        function populateTable(data) {
+            const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+            data.forEach(item => {
+                let row = tableBody.insertRow();
+                Object.values(item).forEach(text => {
+                    let cell = row.insertCell();
+                    cell.textContent = text;
+                });
+            });
+        }
+
+        function sortTable(column) {
+    let table = document.getElementById('data-table');
+    let rows = Array.from(table.rows).slice(1);
+    let isAscending = table.getAttribute('data-sort-dir') === 'asc' && table.getAttribute('data-sort-col') === column.toString();
+    let dir = isAscending ? -1 : 1;
+    table.setAttribute('data-sort-dir', isAscending ? 'desc' : 'asc');
+    table.setAttribute('data-sort-col', column.toString());
+
+    // Determine if the column should be sorted as numbers or strings
+    let isNumeric = rows.every(row => !isNaN(parseFloat(row.cells[column].innerText)) && isFinite(row.cells[column].innerText));
+
+    rows.sort((a, b) => {
+        let x = a.cells[column].innerText.toLowerCase();
+        let y = b.cells[column].innerText.toLowerCase();
+
+        if (isNumeric) {
+            x = parseFloat(x);
+            y = parseFloat(y);
+        }
+
+        return (x < y ? -1 : (x > y ? 1 : 0)) * dir;
+    });
+
+    for (let i = 0; i < rows.length; i++) {
+        table.tBodies[0].appendChild(rows[i]);
+    }
+
+    document.querySelectorAll('th').forEach(th => th.classList.remove('ascending', 'descending'));
+    document.querySelectorAll('th')[column].classList.add(isAscending ? 'descending' : 'ascending');
+}
+
+        function searchTable() {
+            let input = document.getElementById("searchInput");
+            let filter = input.value.toLowerCase();
+            let table = document.getElementById("data-table");
+            let tr = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none"; // Hide all rows initially
+                let td = tr[i].getElementsByTagName("td");
+                for (let j = 0; j < td.length; j++) {
+                    if (td[j].textContent.toLowerCase().indexOf(filter) > -1) {
+                        tr[i].style.display = ""; // Show the row where a match is found
+                        break; // Stop loop if a match is found
+                    }
+                }
+            }
+        }
+
+        window.onload = loadData;
+    </script>
+</body>
+</html>

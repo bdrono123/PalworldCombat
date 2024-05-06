@@ -22,3 +22,29 @@ function displayPalData() {
         document.getElementById('palData').style.display = 'block';
     }
 }
+function displayDetails(palName) {
+    const pal = pals.find(p => p.Pal === palName);
+    if (pal) {
+        document.getElementById('detailName').textContent = pal.Pal;
+        document.getElementById('detailHp').textContent = pal['Level 50 HP'];
+        document.getElementById('detailHpScore').textContent = pal['Level 50 HP Score*'];
+        document.getElementById('detailAttack').textContent = pal['Level 50 Attack'];
+        document.getElementById('detailDefense').textContent = pal['Level 50 Defense'];
+        // Continue for other properties
+
+        document.getElementById('palDetails').style.display = 'block';  // Show the details section
+    }
+}
+
+// Modify the existing populateTable function to add an onclick event to each row
+function populateTable(data) {
+    const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+    data.forEach(item => {
+        let row = tableBody.insertRow();
+        row.onclick = function() { displayDetails(item.Pal); };  // Add click event to each row
+        Object.values(item).forEach(text => {
+            let cell = row.insertCell();
+            cell.textContent = text;
+        });
+    });
+}

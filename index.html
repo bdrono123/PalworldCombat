@@ -112,6 +112,18 @@
             <!-- Data rowswill be inserted here by JavaScript -->
         </tbody>
     </table>
+    <select id="palSelector" onchange="displayPalData()">
+        <!-- Options will be populated by JavaScript -->
+    </select>
+
+    <div id="palData" style="display:none;">
+        <h1 id="palName"></h1>
+        <!-- Add more elements as needed to display other properties -->
+        <p>Level 50 HP: <span id="level50Hp"></span></p>
+        <p>Level 50 HP Score*: <span id="level50HpScore"></span></p>
+        <!-- Continue adding other data points -->
+    </div>
+    
 
     <script>
         async function loadData() {

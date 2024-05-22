@@ -1,0 +1,110 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #000; /* black background */
+    color: #fff; /* white text */
+    /* font-family: "Nova Square", sans-serif; */
+    font-family: "Rowdies", cursive;
+
+    /* font-weight: bolder; */
+    /* font-style: italic; */
+    padding: 0 10px; /* padding for smaller screens */
+    box-sizing: border-box;
+    flex-direction: column; /* Ensure content stacks vertically */
+    overflow: hidden; /* prevent scrollbars */
+
+}
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../img/background.png') no-repeat center center fixed; /* set background image */
+    background-size: cover; /* ensure the background image covers the entire area */
+    opacity: 0.6; /* set opacity to 70% */
+    z-index: -1; /* place the pseudo-element behind the content */
+    animation: growBackground 30s infinite alternate; /* add animation */
+
+}
+
+@keyframes growBackground {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+} 
+
+.header {
+    width: 100%;
+    text-align: center;
+    padding-top: 15vh; /* space from the top */
+    /* background-color: #FFD951; */
+    height: 15vh;
+    display: flex;
+    align-items: center;
+        justify-content: center;
+
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px; /* limit the width for larger screens */
+    flex: 1; /* Ensure this takes up the remaining space */
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    /* background-color: azure; */
+}
+h1 {
+    font-size: 10vw; /* responsive title size */
+    margin: 0;
+}
+
+.menu {
+    margin-top: 5vh; /* responsive space between title and menu */
+}
+
+.menu a {
+    display: block;
+    font-size: 8vw; /* responsive menu item size */
+    color: #888; /* grey color for inactive items */
+    text-decoration: none;
+    margin: 3vh 0; /* responsive space between menu items */
+    position: relative; /* to position the arrow */
+}
+
+.menu a.active, .menu a:hover {
+    color: #FFD951; /* yellow color for active item */
+        font-style: italic;
+
+}
+
+.menu a.active::before, .menu a:hover::before {
+    content: '►'; /* arrow character */
+    color: #FFD951; /* same yellow color */
+    position: absolute;
+    left: -3vw; /* position the arrow closer to the text */
+}
+
+/* Larger screens */
+@media (min-width: 600px) {
+    h1 {
+        font-size: 5em; /* fixed title size for larger screens */
+    }
+    .menu a {
+        font-size: 2.5em; /* fixed menu item size for larger screens */
+        margin: 20px 0; /* fixed space between menu items */
+    }
+    .menu a.active::before, .menu a:hover::before {
+        left: -25%; /* fixed position for the arrow */
+    }
+}

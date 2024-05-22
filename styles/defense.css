@@ -1,0 +1,243 @@
+/* Base styles */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* black background */
+    color: #fff; /* white text */
+    font-family: "Rowdies", cursive;
+    overflow-y: auto; /* Enable vertical scrolling */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Organize content vertically */
+    min-height: 100vh;
+    position: relative;
+    /* background-color: #FFD951; */
+}
+
+body::before {
+    content: "";
+    position: fixed; /* Fix the background */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../img/background.png') no-repeat center center; /* Set background image */
+    background-size: cover; /* Ensure the background image covers the entire area */
+    opacity: 0.6; /* Set opacity to 60% */
+    z-index: -1; /* Place the pseudo-element behind the content */
+}
+
+.header-menu {
+    width: 100%;
+    max-width: 100%; /* Maximum width */
+    display: flex;
+    padding: 20px;
+    z-index: 1; /* Higher z-index to ensure it's above the fixed background */
+    padding-top: 80px;
+    display: flex;
+    margin-left: 2%;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 56px; /* Base size */
+    margin: 0;
+}
+
+.menu {
+    margin-top: 20px;
+    margin-left: 250px;
+    display: flex;
+    gap: 20px; /* Space between menu items */
+    font-size: 30px; /* Base size */
+}
+
+.menu a {
+    color: #888; /* Grey color for inactive items */
+    text-decoration: none;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.menu a.active, .menu a:hover {
+    font-style: italic;
+    color: #FFD951; /* Yellow color for active or hovered items */
+    text-decoration: underline;
+}
+
+
+
+.content {
+    width: 100%;
+    max-width: 90%; /* Consistent with the header-menu width */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content items vertically */
+    z-index: 1; /* Ensure content is above the background */
+}
+
+table {
+    width: 95%; /* Slightly smaller table for better layout */
+    max-width: 95%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    color: #e1e1e1;
+    background-color: #1717179f; /* Light blue background for the table */
+}
+table, th, td {
+    border: 1px solid #3e3e3e; /* Lighter border color */
+    padding: 10px; /* Consistent padding */
+    text-align: left;
+}
+th {
+    background-color: #000000bb; /* A nicer blue for headers */
+    color: #F0A500; /* Gold text in headers */
+    cursor: pointer; /* Ensures cursor changes to pointer on hover */
+    text-align: center;
+    position: relative; /* Needed to position pseudo-elements correctly */
+}
+
+.ascending:after, .descending:after {
+    position: absolute;
+    right: 5px; /* Positioning the arrow to the right inside the header */
+    top: 70%;
+    transform: translateY(-50%);
+    color: #F0A500;
+    font-size: 20px; /* Fixed pixel size */
+}
+
+.ascending:after {
+    content: "\2191"; /* Unicode for upward arrow */
+}
+
+.descending:after {
+    content: "\2193"; /* Unicode for downward arrow */
+}
+
+#searchInput {
+    padding: 8px;
+    padding-left: 20px;
+    width: 95%; /* Fixed width */
+    max-width: 95%;
+    font-size: 16px; /* Fixed pixel size */
+    border-radius: 20px;
+    border: 1px solid #f0a40079;
+    outline: none; /* Removes the default focus highlight */
+    margin-bottom: 5px;
+    color: #F0A500;
+    background-color: #161616; /* Gold background */
+}
+
+/* Media Queries for responsiveness */
+   
+.hamburger {
+    display: none;
+    font-size: 50px;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+.hamburger:hover {
+    color: #FFD951;
+}
+
+.menu-overlay {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+}
+
+.menu-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+.menu-content a {
+    display: block;
+    margin: 10px 0;
+    font-size: 24px;
+    color: #e0e0e0; /* Yellow color */
+    text-decoration: none;
+}
+
+.menu-content a.active, .menu-content a:hover {
+    font-style: italic;
+    color: #FFD951; /* Yellow color for active or hovered items */
+    text-decoration: underline;
+}
+
+@media (max-width: 1500px) {
+    .hamburger {
+        display: block;
+    }
+    .header-menu .menu {
+        display: none;
+    }
+
+    .header-menu {
+        /* background-color: #FFD951; */
+        width: 100%;
+        max-width: 90%; /* Maximum width */
+        display: flex;
+        /* padding: 0px; */
+        z-index: 1; /* Higher z-index to ensure it's above the fixed background */
+        padding-top: 30px;
+        justify-content: space-between;
+
+    }
+    .header h1 {
+        font-size: 36px; /* Base size */
+        margin: 0;
+    }
+table {
+    width: 95%; /* Slightly smaller table for better layout */
+    max-width: 95%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    color: #e1e1e1;
+    background-color: #1717179f; /* Light blue background for the table */
+}
+th, td {
+    padding: 5px; /* Even smaller padding for mobile */
+    font-size: 12px; /* Smaller font size for mobile */
+}
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: #FFF; /* White color for visibility */
+    font-size: 50px; /* Large enough for easy interaction */
+    cursor: pointer;
+    z-index: 1001; /* Ensure it's above other content in the overlay */
+}
+.close-btn:hover {
+    font-size: 55px; /* Large enough for easy interaction */
+    color: #FFD951; /* White color for visibility */
+
+}
+
+@media (max-width: 850px) {
+    th, td {
+        padding: 3px; /* Even smaller padding for mobile */
+        font-size: 7px; /* Smaller font size for mobile */
+    }
+}
+

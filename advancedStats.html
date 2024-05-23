@@ -20,16 +20,16 @@
             <button class="close-btn" onclick="toggleMenu()">x</button>
             <div class="menu-content">
                 <a href="./index.html" class="inactive">Landing Page</a>
-                <a href="./combat.html" class="inactive">Combat</a>
-                <a href="./defense.html" class="active">Defense</a>
-                <a href="./bestMoves.html" class="inactive">Best Moves</a>
+                <a href="./basicStats.html" class="inactive">Basic Stats</a>
+                <a href="./advancedStats.html" class="active">Advanced Stats</a>
+                <a href="./moves.html" class="inactive">Moves</a>
             </div>
         </div>
         <div class="menu">
             <a href="./index.html" class="inactive">Landing Page</a>
-            <a href="./combat.html" class="inactive">Combat</a>
-            <a href="./defense.html" class="active">Defense</a>
-            <a href="./bestMoves.html" class="inactive">Best Moves</a>
+            <a href="./basicStats.html" class="inactive">Basic Stats</a>
+            <a href="./advancedStats.html" class="active">Advanced Stats</a>
+            <a href="./moves.html" class="inactive">Moves</a>
         </div>
     </div>
     <div class="content">
@@ -39,19 +39,22 @@
                 <tr>
                     <th onclick="sortTable(0)">Pal</th>
                     <th onclick="sortTable(1)">Type</th>
-                    <th onclick="sortTable(2)">Level 50 HP</th>
-                    <th onclick="sortTable(3)">Level 50 HP Score*</th>
-                    <th onclick="sortTable(4)">Level 50 Attack</th>
-                    <th onclick="sortTable(5)">Level 50 Defense</th>
-                    <th onclick="sortTable(6)">Combat Score</th>
-                    <th onclick="sortTable(7)">STAB Attack</th>
-                    <th onclick="sortTable(8)">STAB Combat Score</th>
-                    <th onclick="sortTable(9)">Type Atk (STAB)</th>
-                    <th onclick="sortTable(10)">Type Def</th>
-                    <th onclick="sortTable(11)">Type CmbScr (STAB)</th>
-                    <th onclick="sortTable(12)">Type Atk (no STAB)</th>
-                    <th onclick="sortTable(13)">Type CmbScr (no STAB)</th>
-                    <th onclick="sortTable(14)">Best for</th>
+                    <th onclick="sortTable(2)">Level 50 HP Score*</th>
+                    <th onclick="sortTable(3)">Level 50 Attack</th>
+                    <th onclick="sortTable(4)">Level 50 Defense</th>
+                    <th onclick="sortTable(5)">Combat Score</th>
+                    <th onclick="sortTable(6)">STAB Attack</th>
+                    <th onclick="sortTable(7)">STAB Combat Score</th>
+                    <th onclick="sortTable(8)">Type Atk (STAB)</th>
+                    <th onclick="sortTable(9)">Type Def</th>
+                    <th onclick="sortTable(10)">Type CmbScr (STAB)</th>
+                    <th onclick="sortTable(11)">Type Atk (no STAB)</th>
+                    <th onclick="sortTable(12)">Type CmbScr (no STAB)</th>
+                    <th onclick="sortTable(13)">Mount AtkBuff</th>
+                    <th onclick="sortTable(14)">Mnt Buff CmbScr</th>
+                    <th onclick="sortTable(15)">Mnt AtkBuff Type</th>
+                    <th onclick="sortTable(16)">Mnt CmbScr Type </th>
+                    <th onclick="sortTable(17)">Best for </th>
                 </tr>
             </thead>
             <tbody>
@@ -76,7 +79,7 @@
 <script>
     async function loadData() {
         try {
-            const response = await fetch('https://sheetlabs.com/ACC/PalCombatData');
+            const response = await fetch('https://sheetlabs.com/ACC/PalAdvancedData');
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }

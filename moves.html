@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Palworld Combat</title>
-    <link rel="stylesheet" href="./styles/combat.css">
+    <link rel="stylesheet" href="./styles/bestMoves.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Lilita+One&family=Nova+Square&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
@@ -20,16 +20,16 @@
             <button class="close-btn" onclick="toggleMenu()">x</button>
             <div class="menu-content">
                 <a href="./index.html" class="inactive">Landing Page</a>
-                <a href="./combat.html" class="active">Combat</a>
-                <a href="./defense.html" class="inactive">Defense</a>
-                <a href="./bestMoves.html" class="inactive">Best Moves</a>
+                <a href="./basicStats.html" class="inactive">Basic Stats</a>
+                <a href="./advancedStats.html" class="inactive">Advanced Stats</a>
+                <a href="./moves.html" class="active">Moves</a>
             </div>
         </div>
         <div class="menu">
             <a href="./index.html" class="inactive">Landing Page</a>
-            <a href="./combat.html" class="active">Combat</a>
-            <a href="./defense.html" class="inactive">Defense</a>
-            <a href="./bestMoves.html" class="inactive">Best Moves</a>
+            <a href="./basicStats.html" class="inactive">Basic Stats</a>
+            <a href="./advancedStats.html" class="inactive">Advanced Stats</a>
+            <a href="./moves.html" class="active">Moves</a>
         </div>
     </div>
     <div class="content">
@@ -37,21 +37,18 @@
         <table id="data-table">
             <thead>
                 <tr>
-                    <th onclick="sortTable(0)">Pal</th>
-                    <th onclick="sortTable(1)">Type</th>
-                    <th onclick="sortTable(2)">Level 50 HP</th>
-                    <th onclick="sortTable(3)">Level 50 HP Score*</th>
-                    <th onclick="sortTable(4)">Level 50 Attack</th>
-                    <th onclick="sortTable(5)">Level 50 Defense</th>
-                    <th onclick="sortTable(6)">Combat Score</th>
-                    <th onclick="sortTable(7)">STAB Attack</th>
-                    <th onclick="sortTable(8)">STAB Combat Score</th>
-                    <th onclick="sortTable(9)">Type Atk (STAB)</th>
-                    <th onclick="sortTable(10)">Type Def</th>
-                    <th onclick="sortTable(11)">Type CmbScr (STAB)</th>
-                    <th onclick="sortTable(12)">Type Atk (no STAB)</th>
-                    <th onclick="sortTable(13)">Type CmbScr (no STAB)</th>
-                    <th onclick="sortTable(14)">Best for</th>
+                    <th onclick="sortTable(0)">Moves</th>
+                <th onclick="sortTable(1)">CD Ability/Mountedk</th>
+                <th onclick="sortTable(2)">CD</th>
+                <th onclick="sortTable(3)">Dmg (Dummy) given 100 Atk</th>
+                <th onclick="sortTable(4)">Multiplier</th>
+                <th onclick="sortTable(5)">DPS (no animation)</th>
+                <th onclick="sortTable(6)">Dmg/Animation</th>
+                <th onclick="sortTable(7)">Type Atk (STAB)</th>
+                <th onclick="sortTable(8)">Animation Time</th>
+                <th onclick="sortTable(9)">Notes</th>
+                <th onclick="sortTable(10)">Type</th>
+                <th onclick="sortTable(11)">Description</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,7 +73,7 @@
 <script>
     async function loadData() {
         try {
-            const response = await fetch('https://sheetlabs.com/ACC/PalCombatData');
+            const response = await fetch('https://sheetlabs.com/ACC/PalMoves');
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
